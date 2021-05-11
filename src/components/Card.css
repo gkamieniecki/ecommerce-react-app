@@ -1,0 +1,30 @@
+.card {
+  padding: 1em;
+  margin: 1em;
+  background-color: rgb(107, 238, 140);
+  border-radius: 3%;
+}
+
+.catDetails h2 {
+  padding: 0.7em 0.2em 0.2em 0;
+}
+
+.catDetails p {
+  padding: 0.5em 0.2em 0.5em 0;
+}
+
+.catDetails button {
+  align-content: center;
+  width: 4em;
+  height: 2.2em;
+  background-color: rgb(4, 235, 252);
+  border-radius: 15%;
+  border: 0.5px solid black;
+
+}
+
+.btnContainer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
