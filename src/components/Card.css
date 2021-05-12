@@ -3,6 +3,27 @@
   margin: 1em;
   background-color: rgb(107, 238, 140);
   border-radius: 3%;
+  cursor: pointer;
+}
+
+#cardBig {
+  display: grid;
+  grid-template-areas: 
+  "img name"
+  "img buy";
+  height: 90vh;
+  width: 90vw;
+  padding: 1em;
+  margin: 1em;
+  background-color: rgb(107, 238, 140);
+  border-radius: 2vh;
+  cursor: pointer;
+  align-items: center;
+}
+
+#cardImg {
+  grid-area: img;
+
 }
 
 .catDetails h2 {
@@ -20,6 +41,7 @@
   background-color: rgb(4, 235, 252);
   border-radius: 15%;
   border: 0.5px solid black;
+  cursor: pointer;
 
 }
 

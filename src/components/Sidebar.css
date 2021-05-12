@@ -1,0 +1,35 @@
+/* random colours atm  */
+
+button {
+    border: 0;
+}
+
+.side-bar{
+    border-right: 1px solid black;
+    border-radius: 0;
+    border-color: #D1D1D1;
+    background-color: #D1D1D1;
+    transition: 1s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.side-bar-btn{
+    height: 80px;
+    width: 12px;
+    border-top-right-radius: 9rem;
+    border-bottom-right-radius: 9rem;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    outline: 0;
+    background-color: #D1D1D1;
+    position: absolute;
+    z-index: 1;
+}
+.side-bar-btn:hover{
+    cursor: pointer;
+}
+/* .side-bar-btn:focus{
+    outline:0;
+} */

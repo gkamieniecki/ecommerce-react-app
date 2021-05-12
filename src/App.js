@@ -1,8 +1,9 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import SearchBox from './components/SearchBox.js';
-import Card from './components/Card.js'
-import Log from './components/Products.js'
+import Card from './components/Card.js';
+import productsData from "./components/Products.json";
+import Sidebar from "./components/Sidebar.js"
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -11,64 +12,120 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useState([
-    {
-      kitty: "",
-      price: "",
-    }
-  ])
+  const [error, setError] = useState(false);
+  const [search, setSearch] = useState("");
+  const [input, setInput] = useState("");
+  const [showCard, setShowCard] = useState(false);
+  const [cardClicked, setCardClicked] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
+  const addToCart=(item)=>{
+    console.log("added to cart")
+    setCartItems([...cartItems, item]);  
+  }
 
-  // const [products] = useState([
-  //   {
-  //     name: kitty 1,
-  //     price: £50.00,
-      
-  //   },
-  // {
-    //     name: kitty 2,
-    //     price: £0.00,
-        
-    //   }
-      
-  // ])
+  const showCart=()=>{
+    console.log(cartItems) 
+  }
+
+  /* when using useEffect it will cause an infinite loop if square brackets aren't there as a second argument 
+  (https://stackoverflow.com/questions/53243203/react-hook-useeffect-runs-continuously-forever-infinite-loop) */
 
   useEffect(() => {
     handleFetch();
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  })
+  }, []);
 
   const handleFetch = async () => {
-    const response = await fetch(`https://api.thecatapi.com/v1/images/search?order=desc&limit=10&mime_types=static&size=med&api_key=${API_KEY}`)
+    try {
+      const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=11&mime_types=static&order=desc&api_key=${API_KEY}`);
+      if (response.status !== 200) {
+        throw new Error ("Failed to fetch cat images");
+      }
+      const data = await response.json();
+      // remove duplicate image
+      await data.splice(2, 1)
 
-    const data = await response.json();
-    setData(data);
+      setData(data);
+    } catch (Error) {
+      setError(Error.message);
+    }
   }
   
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearch(input);
+    setInput("");
+  }
+
+  const toggleCardBig = (event) => {
+    setShowCard(!showCard);
+    setCardClicked(event.currentTarget.id);
+  }
+  
+// this selects the selected card to be big or display them all
+  const displayCardBig = () => {
+    if (showCard === true) {
+      let tempArr = cardClicked.split("");
+      let cardIndex = tempArr[tempArr.length - 1];
+      return <Card
+        id="cardBig"
+        onClickDiv={toggleCardBig}
+        imgId="cardImg"
+        imgSrc={data[cardIndex].url}
+        name={productsData[cardIndex].name}
+        price={productsData[cardIndex].price}
+        cart={()=> addToCart(productsData[cardIndex]) } />
+    } else {
+      return (
+        productsData.map((item, index) => {
+          return <Card 
+            id={`card${index}`}
+            key={index} 
+            onClickDiv={toggleCardBig}
+            imgSrc={data[index].url} 
+            name={item.name} 
+            price={item.price} 
+            cart={()=> addToCart(item) } />
+        })
+      );
+    }
+  }
+ 
   if (loading) return <h1>Loading...</h1>;
+
+  if (error) {
+    return (
+      <>
+        <h1>Error.</h1>
+        <h2>{error}</h2>
+      </>
+    );
+  }
+
   return (
     <div className="container">
       <div className="header">
         <h1>Cats4Lyf</h1>
-        <SearchBox />
+        <SearchBox onSubmit={handleSubmit} setInput={setInput} input={input}/>
+        <button onClick={showCart}> show cart </button>
       </div>
+      <div className="sidepanel">
+          
+            <Sidebar width={300} height={"100vh"}>
+              <p>test</p>
+              <p>test 2</p>
+            </Sidebar>
+          </div>
       <div className="content">
-        {/* <CardList /> */}
-        <Card imgSrc={`${data[0].url}`} name="Kitty 1" price="£20"/>
-        <Card imgSrc={`${data[1].url}`} name="Kitty 2" price="£30"/>
-        <Card imgSrc={`${data[2].url}`} name="Kitty 3" price="£40"/>
-        <Card imgSrc={`${data[3].url}`} name="Kitty 4" price="£50"/>
-        <Card imgSrc={`${data[4].url}`} name="Kitty 5" price="£50"/>
-        <Card imgSrc={`${data[5].url}`} name="Kitty 6" price="£50"/>
-        <Card imgSrc={`${data[6].url}`} name="Kitty 7" price="£50"/>
-        <Card imgSrc={`${data[7].url}`} name="Kitty 8" price="£50"/>
-        <Card imgSrc={`${data[8].url}`} name="Kitty 9" price="£50"/>
-        <Card imgSrc={`${data[9].url}`} name="Kitty 10" price="£50"/>
+        {displayCardBig()}
       </div>
+      
     </div>
   )
 }
+
 
 export default App;

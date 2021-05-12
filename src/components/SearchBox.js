@@ -1,14 +1,17 @@
 import React from 'react'
 
-const SearchBox = ({ searchChange }) => {
+const SearchBox = (props) => {
   return (
     <div>
-      <input
-        className="searchbox"
-        type="search"
-        placeholder="search cats"
-        onChange={searchChange}
-      />
+      <form onSubmit={props.onSubmit}>
+        <input
+          className="searchbox"
+          type="text"
+          placeholder="search cats"
+          value={props.input}
+          onChange={(e) => props.setInput(e.target.value)} />
+        <button className="submitButton" type="submit">search</button>
+      </form>
     </div>
   )
 }
