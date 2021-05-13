@@ -30,6 +30,11 @@ button {
 .side-bar-btn:hover{
     cursor: pointer;
 }
+
 /* .side-bar-btn:focus{
     outline:0;
 } */
+
+.sidepanel{
+    position: absolute;
+  }

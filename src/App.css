@@ -6,11 +6,11 @@
 
 .header {
   text-align: center;
-  padding: 2em;
+  font-size: 2em;
 }
 
 .header h1 {
-  padding: 0.5em;
+  padding-top: 0.5em;
 }
 .content {
   display: flex;
@@ -20,10 +20,8 @@
   justify-content: space-around;
   align-items: center;
 }
+
 .cat-image{
   height: 200px;
   width: 200px;
-}
-.sidepanel{
-  position: absolute;
 }

@@ -13,8 +13,6 @@ const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [search, setSearch] = useState("");
-  const [input, setInput] = useState("");
   const [showCard, setShowCard] = useState(false);
   const [cardClicked, setCardClicked] = useState("");
   const [cartItems, setCartItems] = useState([]);
@@ -40,24 +38,15 @@ const App = () => {
 
   const handleFetch = async () => {
     try {
-      const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=11&mime_types=static&order=desc&api_key=${API_KEY}`);
+      const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=10&mime_types=static&order=desc&api_key=${API_KEY}`);
       if (response.status !== 200) {
         throw new Error ("Failed to fetch cat images");
       }
       const data = await response.json();
-      // remove duplicate image
-      await data.splice(2, 1)
-
       setData(data);
     } catch (Error) {
       setError(Error.message);
     }
-  }
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSearch(input);
-    setInput("");
   }
 
   const toggleCardBig = (event) => {
@@ -65,6 +54,8 @@ const App = () => {
     setCardClicked(event.currentTarget.id);
   }
   
+// She is very friendly and would fit in with a family, including children. Poppy will give her new owner lots of cuddles and she deserves a fantastic new home.
+
 // this selects the selected card to be big or display them all
   const displayCardBig = () => {
     if (showCard === true) {
@@ -75,8 +66,10 @@ const App = () => {
         onClickDiv={toggleCardBig}
         imgId="cardImg"
         imgSrc={data[cardIndex].url}
+        catDetails="catDetails"
         name={productsData[cardIndex].name}
-        price={productsData[cardIndex].price}
+        price={<>{`${productsData[cardIndex].name} is such a pretty cat. They are playful and affectionate and will be ready for her new home very soon.`}<br/><br/>{` ${productsData[cardIndex].name} is very friendly and would fit in with a family, including children. They will give their new owner lots of cuddles and they deserve a fantastic new home.`}<br/><br/>{`The price for ${productsData[cardIndex].name} is ${productsData[cardIndex].price}`}</>}
+        buttonId="buttonId"
         cart={()=> addToCart(productsData[cardIndex]) } />
     } else {
       return (
@@ -85,7 +78,7 @@ const App = () => {
             id={`card${index}`}
             key={index} 
             onClickDiv={toggleCardBig}
-            imgSrc={data[index].url} 
+            imgSrc={data[index].url}
             name={item.name} 
             price={item.price} 
             cart={()=> addToCart(item) } />
@@ -109,16 +102,15 @@ const App = () => {
     <div className="container">
       <div className="header">
         <h1>Cats4Lyf</h1>
-        <SearchBox onSubmit={handleSubmit} setInput={setInput} input={input}/>
-        <button onClick={showCart}> show cart </button>
       </div>
-      <div className="sidepanel">
-          
-            <Sidebar width={300} height={"100vh"}>
+      {/* <div className="sidepanel"> */}
+          {/* !hidden ? */}
+            <Sidebar width={300} height={"100vh"} hidden={""} setHidden={""}>
               <p>test</p>
               <p>test 2</p>
             </Sidebar>
-          </div>
+            {/* : <button onClick={set hidden to false}>">"</button> */}
+          {/* </div> */}
       <div className="content">
         {displayCardBig()}
       </div>

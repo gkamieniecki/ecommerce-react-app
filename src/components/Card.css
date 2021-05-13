@@ -23,7 +23,24 @@
 
 #cardImg {
   grid-area: img;
+  height: 70vh;
+  width: 40vw;
+  margin-left: 4vw;
+  margin-right: 2vw;
+}
 
+#catDetails h2 {
+  grid-area: name;
+  font-size: 3em;
+}
+
+#catDetails p {
+  grid-area: buy;
+  font-size: 1.5em;
+}
+
+#buttonId {
+  margin-left: 5vw;
 }
 
 .catDetails h2 {
@@ -47,6 +64,8 @@
 
 .btnContainer {
   display: flex;
+  width: fit-content;
+  margin-left: 4vw;
   align-content: center;
   justify-content: center;
 }
