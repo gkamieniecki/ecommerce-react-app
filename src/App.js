@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Card from './components/Card.js';
 import productsData from "./components/Products.json";
 import Sidebar from "./components/Sidebar.js"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -59,27 +60,39 @@ const App = () => {
     if (showCard === true) {
       let tempArr = cardClicked.split("");
       let cardIndex = tempArr[tempArr.length - 1];
-      return <Card
-        id="cardBig"
-        onClickDiv={toggleCardBig}
-        imgId="cardImg"
-        imgSrc={data[cardIndex].url}
-        catDetails="catDetails"
-        name={productsData[cardIndex].name}
-        price={<>{`${productsData[cardIndex].name} is such a pretty cat. They are playful and affectionate and will be ready for her new home very soon.`}<br/><br/>{` ${productsData[cardIndex].name} is very friendly and would fit in with a family, including children. They will give their new owner lots of cuddles and they deserve a fantastic new home.`}<br/><br/>{`The price for ${productsData[cardIndex].name} is ${productsData[cardIndex].price}`}</>}
-        buttonId="buttonId"
-        cart={()=> addToCart(productsData[cardIndex]) } />
+      return ( 
+        <Router>
+          <Link to="/" className="Link">
+            <Card
+              id="cardBig"
+              onClickDiv={toggleCardBig}
+              imgId="cardImg"
+              imgSrc={data[cardIndex].url}
+              catDetails="catDetails"
+              name={productsData[cardIndex].name}
+              price={<>{`${productsData[cardIndex].name} is such a pretty cat. They are playful and affectionate and will be ready for her new home very soon.`}<br/><br/>{` ${productsData[cardIndex].name} is very friendly and would fit in with a family, including children. They will give their new owner lots of cuddles and they deserve a fantastic new home.`}<br/><br/>{`The price for ${productsData[cardIndex].name} is ${productsData[cardIndex].price}`}</>}
+              buttonId="buttonId"
+              cart={()=> addToCart(productsData[cardIndex]) } />
+          </Link>
+        </Router>
+      )
     } else {
       return (
         productsData.map((item, index) => {
-          return <Card 
-            id={`card${index}`}
-            key={index} 
-            onClickDiv={toggleCardBig}
-            imgSrc={data[index].url}
-            name={item.name} 
-            price={item.price} 
-            cart={()=> addToCart(item) } />
+          return ( 
+            <Router>
+              <Link to={item.name} className="Link">
+                <Card 
+                  id={`card${index}`}
+                  key={index} 
+                  onClickDiv={toggleCardBig}
+                  imgSrc={data[index].url}
+                  name={item.name} 
+                  price={item.price} 
+                  cart={()=> addToCart(item) } />
+              </Link>
+            </Router>
+          );
         })
       );
     }
@@ -115,6 +128,5 @@ const App = () => {
     </div>
   );
 }
-
 
 export default App;
