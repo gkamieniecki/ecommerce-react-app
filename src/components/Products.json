@@ -1,42 +1,42 @@
 [
       {
             "name": "Boris",
-            "price": "£50"
+            "price": 50
       },
       {
             "name": "Bobby",
-            "price": "£10"
+            "price": 10
       },
       {
             "name": "Josh",
-            "price": "£20"
+            "price": 20
       },
       {
             "name": "Billy",
-            "price": "£30"
+            "price": 30
       },
       {
             "name": "Misty",
-            "price": "£40"
+            "price": 40
       },
       {
             "name": "Tinkerbell",
-            "price": "£60"
+            "price": 60
       },
       {
             "name": "Poppy",
-            "price": "£110"
+            "price": 10
       },
       {
             "name": "Lilly",
-            "price": "£90"
+            "price": 90
       },
       {
             "name": "Bella",
-            "price": "£55"
+            "price": 55
       },
       {
             "name": "Ben",
-            "price": "£70"
+            "price": 70
       }
 ]
