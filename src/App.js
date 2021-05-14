@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import SearchBox from './components/SearchBox.js';
 import Card from './components/Card.js';
 import productsData from "./components/Products.json";
 import Sidebar from "./components/Sidebar.js"
@@ -9,13 +8,12 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 // `https://api.thecatapi.com/v1/images/search?api_key=${API_KEY}`
 
-// i have added a line to test pulling and stuff on github
-
 const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const [hidden, setHidden] = useState(true);
   const [cardClicked, setCardClicked] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
@@ -55,8 +53,6 @@ const App = () => {
     setShowCard(!showCard);
     setCardClicked(event.currentTarget.id);
   }
-  
-// She is very friendly and would fit in with a family, including children. Poppy will give her new owner lots of cuddles and she deserves a fantastic new home.
 
 // this selects the selected card to be big or display them all
   const displayCardBig = () => {
@@ -100,25 +96,24 @@ const App = () => {
     );
   }
 
+  console.log(`hidden is: ${hidden}`)
+
   return (
     <div className="container">
       <div className="header">
         <h1>Cats4Lyf</h1>
       </div>
-      {/* <div className="sidepanel"> */}
-          {/* !hidden ? */}
-            <Sidebar width={300} height={"100vh"} hidden={""} setHidden={""}>
-              <p>test</p>
-              <p>test 2</p>
-            </Sidebar>
-            {/* : <button onClick={set hidden to false}>">"</button> */}
-          {/* </div> */}
+        {hidden ? <button onClick={() => setHidden(!hidden)} className="sideBarButton">test</button>:null}
+        {!hidden ? <Sidebar width={300} height={"100vh"} hidden={hidden} setHidden={setHidden}>
+          <p>test</p>
+          <p>test 2</p>
+        </Sidebar>:null}
       <div className="content">
         {displayCardBig()}
       </div>
       
     </div>
-  )
+  );
 }
 
 
