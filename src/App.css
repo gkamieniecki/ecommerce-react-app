@@ -44,3 +44,18 @@
 .sideBarButton:hover {
   cursor: pointer;
 }
+
+.Link {
+  text-decoration: none;
+  color: black;
+}
+
+.Link:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.link:visited {
+  text-decoration: none;
+  color: black;
+}
