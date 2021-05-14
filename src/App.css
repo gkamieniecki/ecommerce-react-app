@@ -59,3 +59,23 @@
   text-decoration: none;
   color: black;
 }
+
+.sp-title{
+  display: flex;
+  justify-content: center;
+}
+
+.whole-cart{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cart-items-only{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  justify-content: space-evenly;
+  
+}
