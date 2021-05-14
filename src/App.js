@@ -143,7 +143,7 @@ const App = () => {
       <div className="header">
         <h1>Cats4Lyf</h1>
       </div>
-        {hidden ? <button onClick={() => setHidden(!hidden)} className="sideBarButton">test</button>:null}
+        {hidden ? <button onClick={() => setHidden(!hidden)} className="sideBarButton"></button>:null}
         {!hidden ? <Sidebar width={300} height={"100vh"} hidden={hidden} setHidden={setHidden}>
           {renderCart()}
         </Sidebar>:null}
