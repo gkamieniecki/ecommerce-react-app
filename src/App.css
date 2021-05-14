@@ -25,3 +25,22 @@
   height: 200px;
   width: 200px;
 }
+
+.sideBarButton {
+  height: 80px;
+  width: 12px;
+  border-top-right-radius: 9rem;
+  border-bottom-right-radius: 9rem;
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  outline: 0;
+  background-color: #D1D1D1;
+  position: absolute;
+  top: 32.5vh;
+  z-index: 1;
+}
+
+.sideBarButton:hover {
+  cursor: pointer;
+}
