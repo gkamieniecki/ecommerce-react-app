@@ -16,11 +16,38 @@ const App = () => {
   const [hidden, setHidden] = useState(true);
   const [cardClicked, setCardClicked] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  
+  const total =()=>{
+    return cartItems.reduce((sum, { price })=> sum + price, 0 )
+  }
 
   const addToCart=(item)=>{
     console.log("added to cart")
-    setCartItems([...cartItems, item]);  
+    setCartItems([...cartItems, {...item }]);  
   }
+  const removeFromCart =(itemToRemove)=>{
+      setCartItems(cartItems.filter(item => item !== itemToRemove))
+  }
+
+ const renderCart=()=>(
+  <>
+  <h1 className="sp-title">Basket</h1>
+  <div className="total">
+      <h3>Total Price: £{total()}</h3>
+    </div>
+    <div className="whole-cart">
+    {cartItems.map((item)=>(  
+      <div className="cart-items-only">
+        <h2>{item.name} </h2>
+        <h2> - £{item.price}</h2>
+        <button onClick={()=> removeFromCart(item)}>Remove</button>  
+      </div>
+    ))}
+    </div>
+    
+  </>
+ )
+
 
   const showCart=()=>{
     console.log(cartItems) 
@@ -66,7 +93,7 @@ const App = () => {
         imgSrc={data[cardIndex].url}
         catDetails="catDetails"
         name={productsData[cardIndex].name}
-        price={<>{`${productsData[cardIndex].name} is such a pretty cat. They are playful and affectionate and will be ready for her new home very soon.`}<br/><br/>{` ${productsData[cardIndex].name} is very friendly and would fit in with a family, including children. They will give their new owner lots of cuddles and they deserve a fantastic new home.`}<br/><br/>{`The price for ${productsData[cardIndex].name} is ${productsData[cardIndex].price}`}</>}
+        price={<>{`${productsData[cardIndex].name} is such a pretty cat. They are playful and affectionate and will be ready for her new home very soon.`}<br/><br/>{` ${productsData[cardIndex].name} is very friendly and would fit in with a family, including children. They will give their new owner lots of cuddles and they deserve a fantastic new home.`}<br/><br/>{`The price for ${productsData[cardIndex].name} is £${productsData[cardIndex].price}`}</>}
         buttonId="buttonId"
         cart={()=> addToCart(productsData[cardIndex]) } />
     } else {
@@ -78,7 +105,7 @@ const App = () => {
             onClickDiv={toggleCardBig}
             imgSrc={data[index].url}
             name={item.name} 
-            price={item.price} 
+            price= {`£${item.price}`} 
             cart={()=> addToCart(item) } />
         })
       );
@@ -105,8 +132,7 @@ const App = () => {
       </div>
         {hidden ? <button onClick={() => setHidden(!hidden)} className="sideBarButton">test</button>:null}
         {!hidden ? <Sidebar width={300} height={"100vh"} hidden={hidden} setHidden={setHidden}>
-          <p>test</p>
-          <p>test 2</p>
+          {renderCart()}
         </Sidebar>:null}
       <div className="content">
         {displayCardBig()}

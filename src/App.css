@@ -44,3 +44,23 @@
 .sideBarButton:hover {
   cursor: pointer;
 }
+
+.sp-title{
+  display: flex;
+  justify-content: center;
+}
+
+.whole-cart{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cart-items-only, .total{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  justify-content: space-evenly;
+  
+}
